@@ -1,0 +1,183 @@
+@import "tailwindcss";
+
+/* ─── Custom Theme Tokens ─────────────────────────────────────────────── */
+@theme inline {
+  /* Colors */
+  --color-cream: #FFF4D6;
+  --color-forest: #12372A;
+  --color-forest-dark: #0a1f15;
+  --color-lime: #C8F560;
+  --color-coral: #FF6B4A;
+  --color-white: #ffffff;
+
+  /* Fonts */
+  --font-bricolage: var(--font-bricolage);
+  --font-inter: var(--font-inter);
+}
+
+/* ─── Base Reset ──────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  background-color: #FFF4D6;
+  color: #12372A;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Keyframes ───────────────────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(var(--rot, 0deg)); }
+  50%       { transform: translateY(-12px) rotate(var(--rot, 0deg)); }
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(var(--rot, 0deg)); }
+  50%       { transform: translateY(-8px) rotate(var(--rot, 0deg)); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(200, 245, 96, 0.4); }
+  70%  { box-shadow: 0 0 0 10px rgba(200, 245, 96, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(200, 245, 96, 0); }
+}
+
+/* ─── Animation Utilities ─────────────────────────────────────────────── */
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-slow 5.5s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 4.5s ease-in-out 0.8s infinite;
+}
+
+.animate-float-delayed-2 {
+  animation: float-slow 6s ease-in-out 1.6s infinite;
+}
+
+.notification-1 {
+  animation: slide-in-right 0.5s ease-out 0.3s both;
+}
+.notification-2 {
+  animation: slide-in-right 0.5s ease-out 0.9s both;
+}
+.notification-3 {
+  animation: slide-in-right 0.5s ease-out 1.5s both;
+}
+.notification-4 {
+  animation: slide-in-right 0.5s ease-out 2.1s both;
+}
+
+.fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+
+/* ─── Reduced Motion Overrides ────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-slow,
+  .animate-float-delayed,
+  .animate-float-delayed-2 {
+    animation: none;
+  }
+
+  .notification-1,
+  .notification-2,
+  .notification-3,
+  .notification-4 {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .fade-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ─── Scroll-Triggered Fade-Up ────────────────────────────────────────── */
+.scroll-fade {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-fade {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ─── FAQ Accordion ───────────────────────────────────────────────────── */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.faq-answer.open {
+  max-height: 300px;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq-answer {
+    transition: none;
+  }
+}
+
+/* ─── Typography Helpers ──────────────────────────────────────────────── */
+.font-bricolage {
+  font-family: var(--font-bricolage), system-ui, sans-serif;
+}
+
+.font-inter {
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+/* ─── Focus Ring Override ─────────────────────────────────────────────── */
+*:focus-visible {
+  outline: 3px solid #C8F560;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
